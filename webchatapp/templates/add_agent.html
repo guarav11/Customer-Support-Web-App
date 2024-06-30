@@ -1,0 +1,64 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+<!-- <div class="container">
+    <h2 class="text-center">Add Agent</h2>
+    <form id="addAgentForm" class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="agentName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="agentName">
+            </div>
+            <div class="mb-3">
+                <label for="agentEmail" class="form-label">Email</label>
+                <input type="text" class="form-control" id="agentEmail">
+            </div>
+            <div class="mb-3">
+                <label for="agentPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="agentPassword">
+            </div>
+            <div class="mb-3">
+                <label for="agentType" class="form-label">Agent Type</label>
+                <select class="form-select" id="agentType">
+                    <option value="chat">Chat Agent</option>
+                    <option value="video">Video Agent</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div> -->
+
+
+<div class="container">
+    <h2 class="text-center">Add Agent</h2>
+    <form id="addAgentForm" class="row justify-content-center" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="col-md-6">
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control", id="agentName") }}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control", id="agentEmail") }}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control", id="agentPassword") }}
+            </div>
+            <div class="mb-3">
+                {{ form.agent_type.label(class="form-label") }}
+                <select class="form-select" id="agentType" name="agent_type">
+                    <option value="Chat Agent">Chat Agent</option>
+                    <option value="Video Agent">Video Agent</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

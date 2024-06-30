@@ -1,0 +1,33 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Download CSV/Excel section -->
+            <div class="col-md-6 section">
+                <h2>Share Campaigns Using CSV/Excel</h2>
+                <div class="mb-3">
+                    <a href="demo.csv" download>Download Demo CSV file</a>
+                </div><br>
+                <form method="POST" action="#" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ form.upload_csv.label(class="form-label") }}
+                        {{ form.upload_csv(class="form-control") }}
+                        {% for error in form.upload_csv.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.upload_images.label(class="form-label") }}
+                        {{ form.upload_images(class="form-control") }}
+                        {% for error in form.upload_images.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {{ form.import_button(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

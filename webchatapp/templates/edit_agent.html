@@ -1,0 +1,38 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center">Edit Agent</h2>
+    <form id="editAgentForm" class="row justify-content-center" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="col-md-6">
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control", id="agentName") }}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control", id="agentEmail") }}
+            </div>
+            <div class="mb-3">
+                {{ form.agent_type.label(class="form-label") }}
+                <select class="form-select" id="agentType" name="agent_type">
+                    <option value="Chat Agent">Chat Agent</option>
+                    <option value="Video Agent">Video Agent</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control", id="agentPassword") }}
+            </div>
+            <div class="mb-3">
+                {{ form.confirm_password.label(class="form-label") }}
+                {{ form.confirm_password(class="form-control", id="confirmPassword") }}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

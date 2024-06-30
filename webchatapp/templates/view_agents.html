@@ -1,0 +1,72 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+
+<style>
+    .radio-label {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .green {
+        background-color: green;
+    }
+    .red {
+        background-color: red;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <h3 class="mb-4">Agents</h3>
+    <!-- Search Box -->
+    <div class="input-group mb-3 justify-content-end">
+        <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-search">
+        <button class="btn btn-outline-primary" type="button" id="button-search"><i class="bi bi-search"></i> Search</button>
+    </div>
+    <!-- Agents Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                    <th>Status</th>
+                    <th>End Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agent in agents %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ agent.name }}</td>
+                    <td>{{ agent.email }}</td>
+                    <td>{{ agent.agent_type }}</td>
+                    <td>
+                        <a href="{{ url_for('agents.edit_agent', agent_id=agent.id) }}"><i class="bi bi-pencil-square text-primary me-2"></i>Edit</a>
+                        <form method="POST" action="{{ url_for('agents.delete_agent', agent_id=agent.id) }}" style="display: inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-link"><i class="bi bi-trash"></i>Delete</button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <input type="radio" id="status{{ loop.index }}" name="status{{ loop.index }}" value="active" {% if agent.status == 'active' %}checked{% endif %}>
+                        <label for="status{{ loop.index }}" class="radio-label green"></label>
+                        <!-- <input type="radio" id="status{{ loop.index }}_inactive" name="status{{ loop.index }}" value="inactive" {% if agent.status == 'inactive' %}checked{% endif %}>
+                        <label for="status{{ loop.index }}_inactive" class="radio-label red"></label> -->
+                    </td>
+                    
+                    <td><button class="btn btn-danger">End Chat</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

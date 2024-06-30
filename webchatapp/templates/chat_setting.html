@@ -1,0 +1,32 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center">Chat Settings</h2><br>
+    <form id="chatSettingsForm" class="row justify-content-center" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="col-md-6">
+            <div class="mb-3">
+                {{ form.idle_notification_time.label(class="form-label") }}
+                {{ form.idle_notification_time(class="form-control", id="idleNotificationTime") }}
+            </div>
+            <div class="mb-3">
+                {{ form.idle_notification_message.label(class="form-label") }}
+                {{ form.idle_notification_message(class="form-control", id="idleNotificationMessage") }}
+            </div>
+            <div class="mb-3">
+                {{ form.idle_chat_end_time.label(class="form-label") }}
+                {{ form.idle_chat_end_time(class="form-control", id="idleChatEndTime") }}
+            </div>
+            <div class="mb-3">
+                {{ form.end_chat_message.label(class="form-label") }}
+                {{ form.end_chat_message(class="form-control", id="endChatMessage") }}
+            </div>
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+            <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+        </div>
+    </form>
+</div>
+
+{% endblock %}

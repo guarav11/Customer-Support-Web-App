@@ -1,0 +1,79 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <!-- Buttons row -->
+        <div class="row">
+            <!-- Left side button to add campaign -->
+            <div class="col-md-6">
+                <a href="{{ url_for('campaigns.using_form') }}" class="btn btn-primary">Using Form</a>
+                <!-- <button class="btn btn-primary">Using Form</button> -->
+            </div>
+            <!-- Right side button to delete campaign -->
+            <div class="col-md-6 text-end">
+                <a href="{{ url_for('campaigns.using_csv') }}" class="btn btn-primary">Using CSV/Excel</a>
+                <!-- <button class="btn btn-primary">Using CSV/Excel</button> -->
+            </div>
+        </div><br>
+
+        <!-- Right side table -->
+        <div class="row">
+            <div class="col-md-12 section">
+                <h2>Share Campaigns Table</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL. No.</th>
+                            <th>Date</th>
+                            <th>Mobile Number</th>
+                            <th>Template Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for campaign in campaigns.items %}
+                        <tr>
+                            <td>{{ (campaigns.page - 1) * campaigns.per_page + loop.index }}</td> <!-- Corrected SL. No. calculation -->
+                            <td>{{ campaign.date }}</td>
+                            <td>{{ campaign.contact_number }}</td>
+                            <td>{{ campaign.template_name }}</td>
+                            <td>Status</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <nav class="d-flex justify-content-end" aria-label="Page navigation"> <!-- Align pagination to the right -->
+                    <ul class="pagination">
+                        {% if campaigns.has_prev %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('campaigns.share_campaigns', page=campaigns.prev_num) }}">Previous</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                        {% endif %}
+                        
+                        {% for page in campaigns.iter_pages() %}
+                            {% if page %}
+                                {% if page == campaigns.page %}
+                                    <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('campaigns.share_campaigns', page=page) }}">{{ page }}</a></li>
+                                {% endif %}
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if campaigns.has_next %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('campaigns.share_campaigns', page=campaigns.next_num) }}">Next</a></li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

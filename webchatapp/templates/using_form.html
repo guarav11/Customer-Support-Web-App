@@ -1,0 +1,52 @@
+{% extends "base_dashboard.html" %}
+
+<!-- {% block styles %}
+<style>
+    /* Decrease font size */
+    /* body {
+        font-size: 14px;
+    } */
+    /* Add boundaries around sections */
+    .section {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %} -->
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+            <!-- Left side Share Form section -->
+            <div class="col-md-6 section">
+                <h2>Share Campaigns Using Form</h2><br>
+                <form method="POST" action="#" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.country_code.label(class="form-label") }}
+                        {{ form.country_code(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.contact_number.label(class="form-label") }}
+                        {{ form.contact_number(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.template_name.label(class="form-label") }}
+                        {{ form.template_name(class="form-select") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.upload_file.label(class="form-label") }}
+                        {{ form.upload_file(class="form-control") }}
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+                </form>
+            </div>
+        </div> 
+    </div>
+
+
+{% endblock %}

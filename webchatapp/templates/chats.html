@@ -1,0 +1,135 @@
+{% extends "base_dashboard.html" %}
+
+{% block content %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(".sortable").click(function() {
+            var $table = $(this).closest('table');
+            var index = $(this).index();
+            var rows = $table.find('tbody > tr').get();
+            rows.sort(function(a, b) {
+                var dateA = new Date($(a).children('td').eq(index).text());
+                var dateB = new Date($(b).children('td').eq(index).text());
+                return dateA - dateB;
+            });
+            if ($(this).hasClass('sorted')) {
+                rows.reverse();
+                $(this).removeClass('sorted').find('i').toggleClass('fa-chevron-up fa-chevron-down');
+            } else {
+                $(this).addClass('sorted').find('i').toggleClass('fa-chevron-up fa-chevron-down');
+            }
+            $.each(rows, function(index, row) {
+                $table.children('tbody').append(row);
+            });
+        });
+    });
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+
+
+<!-- Main Content -->
+<div class="container-fluid">
+    <h3 class="mb-4">Chats</h3>
+    <div class="row">
+        <!-- Left Section: Users -->
+        <div class="col-md-4">
+            <div class="p-3 bg-light">
+                <h4>Users</h4>
+                <!-- Search Box -->
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <!-- <th class="sortable">Date <i class="fas fa-sort"></i></th> -->
+                            <th class="sortable">Date <i class="fas fa-chevron-up"></i></th>
+                            <th>Mobile Number</th>
+                            <th>Request</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>20/03/2024</td>
+                            <td>123-456-7890</td>
+                            <td>Request</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>19/03/2024</td>
+                            <td>123-456-7890</td>
+                            <td>Request</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>23/03/2024</td>
+                            <td>123-456-7890</td>
+                            <td>Request</td>
+                        </tr>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>25/03/2024</td>
+                            <td>123-456-7890</td>
+                            <td>Request</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Section: Conversations -->
+
+        <style>
+            /* CSS for scrollbar */
+            .conversation-container {
+                max-height: 500px; /* Adjust the height as needed */
+                overflow-y: auto;
+                padding-right: 15px; /* Add padding to accommodate scrollbar */
+            }
+            
+            .message.right {
+            text-align: right;
+            }
+            .message.left {
+            text-align: left;
+            }
+
+        </style>
+
+        <div class="col-md-8">
+            <div class="p-3 bg-light">
+                <h4>Conversations</h4>
+                <!-- Conversation container with scrollbar -->
+                <div class="conversation-container" id="conversation-container">
+                    <div class="conversation" id="conversation">
+                        {% for message in messages %}
+                            <div class="message {% if loop.index is divisibleby(2) %}left{% else %}right{% endif %}">
+                                <div class="text">{{ message }}</div><br>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

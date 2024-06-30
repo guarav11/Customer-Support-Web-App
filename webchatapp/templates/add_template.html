@@ -1,0 +1,26 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h2 class="text-center">Add Template</h2>
+    <form id="addTemplateForm" class="row justify-content-center" method="POST">
+        <!-- You can replace 'form.hidden_tag()' with your CSRF token if needed -->
+        {{ form.hidden_tag() }}
+        <div class="col-md-6">
+            <div class="mb-3">
+                {{ form.template_name.label(class="form-label") }}
+                {{ form.template_name(class="form-control", id="templateName") }}
+            </div>
+            <div class="mb-3">
+                {{ form.template_message.label(class="form-label") }}
+                {{ form.template_message(class="form-control", id="templateMessage") }}
+            </div>
+            <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}
